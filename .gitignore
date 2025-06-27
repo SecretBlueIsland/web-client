@@ -2,5 +2,6 @@
 assets/
 *.ico
 *.svg
+*.txt
 
 index.html

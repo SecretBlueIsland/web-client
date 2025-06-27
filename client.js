@@ -1,5 +1,7 @@
 'use strict'
 
+import { TURN_SERVER_IP } from './config.js';
+
 const srcRoomId = ()=>document.querySelector('#src').value; // local room id
 const dstRoomId = ()=>document.querySelector('#room').value; // remote room id
 
@@ -15,7 +17,7 @@ var answerDisplay = document.querySelector('textarea#answer');
 var pcConfig = {
     'iceServers': [
         {
-            'urls': 'turn:192.168.1.41:3478',            
+            'urls': `turn:${TURN_SERVER_IP}:3478`,
             'username': "test",            
             'credential': "test123"
         }

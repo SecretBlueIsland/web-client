@@ -29,8 +29,6 @@ var pcConfig = {
 
 let m_local_data_channels = new Map()
 
-const DATA_CHANNEL_FILE_TRANSPORT = "file-transport"
-const DATA_CHANNEL_MOUSE_KEYBOARD = "mouse-keyboard"
 const DATA_CHANNEL_CUSTOM_MESSAGE = "custom-message"
 
 
@@ -189,16 +187,6 @@ function createPeerConnection() {
 
     pc = new RTCPeerConnection(pcConfig);
 
-    {
-
-        let channel = pc.createDataChannel(DATA_CHANNEL_MOUSE_KEYBOARD);
-	    m_local_data_channels.set(DATA_CHANNEL_MOUSE_KEYBOARD, channel);
-    }
-    {
-
-        let channel = pc.createDataChannel(DATA_CHANNEL_FILE_TRANSPORT);
-	    m_local_data_channels.set(DATA_CHANNEL_FILE_TRANSPORT, channel);
-    }
     {
 
         let channel = pc.createDataChannel(DATA_CHANNEL_CUSTOM_MESSAGE);

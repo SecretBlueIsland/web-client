@@ -172,11 +172,6 @@ function getOffer(desc) {
     sendMessage(dstRoomId(), offerdesc);
 }
 
-/**
- * 功能： 创建PeerConnection 对象
- *
- * 返回值： 无
- */
 function createPeerConnection() {
     if (pc) {
         console.log('the pc have be created!');
@@ -191,11 +186,6 @@ function createPeerConnection() {
 
         let channel = pc.createDataChannel(DATA_CHANNEL_CUSTOM_MESSAGE);
         channel.onopen = function(event) {
-            let a = new Uint8Array(8)
-            a[0] = 3
-            a[1] = 1503
-            a[2] = 1503>>8
-            channel.send(a);
             console.log('channel.onopen');
           }
 
@@ -207,19 +197,25 @@ function createPeerConnection() {
         console.log('onicecandidate event:', event)
         if (event.candidate) 
         {
-            console.log("candidate：" + JSON.stringify(event.candidate.toJSON()));
-                        
-
-            sendMessage(dstRoomId(), {
-                type: 'candidate',
-                sdpMLineIndex: event.candidate.sdpMLineIndex,
-                sdpMid: event.candidate.sdpMid,
-                candidate: event.candidate.candidate
-            });
+            console.log("candidate: " + JSON.stringify(event.candidate.toJSON()));
         } else {
                 console.log('this is the end candidate');
         }
     }
+
+    pc.ondatachannel = p => {
+		s = p.channel,
+		s.onopen = () => {
+			console.log("dc open")
+		}
+		,
+		s.onmessage = m => {
+			console.log("dc msg---", m)
+		}
+		,
+		s.onclose = () => {}
+	}
+
     pc.ontrack = getRemoteStream;
 }
 
